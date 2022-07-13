@@ -27,6 +27,7 @@ class CreateEmployeeView(GenericAPIView):
 
 class ListEmployeeView(ListAPIView):
     serializer_class = EmployeeSerializer
+    permission_classes = [IsAuthenticated, ]
     filter_backends = [filters.SearchFilter, filters.OrderingFilter, DjangoFilterBackend]
     filterset_fields = ['name', 'post', 'salary', 'boss', 'adopted_to_job']
     search_fields = ['name', 'post']
