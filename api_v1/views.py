@@ -3,6 +3,9 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from rest_framework.generics import GenericAPIView, ListAPIView
 from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+
 from .models import Employee
 from .serializer import EmployeeSerializer
 
@@ -62,3 +65,13 @@ class UpdateEmployeeView(GenericAPIView):
             return Response(serializer.data)
         else:
             return Response(serializer.errors, status=400)
+
+
+class LogoutView(APIView):
+    permission_classes = []
+
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        if user.is_authenticated:
+            user.auth_token.delete()
+        return Response({'status': 'ok'})

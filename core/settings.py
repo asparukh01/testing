@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api_v1',
     'rest_framework',
+    'rest_framework.authtoken',
     'django_seed',
     'django_filters',
 ]
@@ -70,10 +71,12 @@ TEMPLATES = [
 ]
 
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 50
 }
-
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
